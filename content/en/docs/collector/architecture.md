@@ -66,7 +66,8 @@ the first processor, which processes the data and then pushes it to the next
 processor. A processor might also drop the data if it's sampling or filtering.
 This continues until the last processor in the pipeline pushes the data to the
 exporters. Each exporter gets a copy of each data element. The last processor
-uses a `fanoutconsumer` to send the data to multiple exporters.
+uses a `fanoutconsumer` to send the data to multiple exporters.  
+Note: The last processor always creates a fanoutconsumer to forward the data to its exporters, even if there is only one exporter.
 
 The pipeline is constructed during Collector startup based on pipeline
 definition in the configuration.
@@ -142,6 +143,10 @@ then to processors is completed using a synchronous function call. This means
 that if one processor blocks the call, the other pipelines attached to this
 receiver are blocked from receiving the same data, and the receiver itself stops
 processing and forwarding newly received data.
+
+Each receiver and processor is created with a nextConsumer struct.  These structs implement a a
+consumer.<Signal> where signal is an OpenTelemetry signal.  The interface implements a consume<Signal> struc.
+Each receiver is responsible for using a thread to call the next consume<Signal> function.
 
 {{% /alert %}}
 
