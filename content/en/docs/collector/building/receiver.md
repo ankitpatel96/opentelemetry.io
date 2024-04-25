@@ -498,14 +498,14 @@ and it requires the following parameters:
   `receiver.CreateTracesFunc` type. The `receiver.CreateTracesFunc` type is a
   pointer to a function that is responsible to instantiate and return a
   `receiver.Traces` instance and it requires the following parameters:
-- `context.Context`: the reference to the Collector's `context.Context` so your
+    - `context.Context`: the reference to the Collector's `context.Context` so your
   trace receiver can properly manage its execution context.
-- `receiver.CreateSettings`: the reference to some of the Collector's settings
+    - `receiver.CreateSettings`: the reference to some of the Collector's settings
   under which your receiver is created.
-- `component.Config`: the reference for the receiver config settings passed by
+    - `component.Config`: the reference for the receiver config settings passed by
   the Collector to the factory so it can properly read its settings from the
   Collector config.
-- `consumer.Traces`: the reference to the next `consumer.Traces` in the
+    - `consumer.Traces`: the reference to the next `consumer.Traces` in the
   pipeline, which is where received traces will go. This is either a processor
   or an exporter.
 
